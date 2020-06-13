@@ -3,23 +3,20 @@ import firebase from '../../../firebase'
 
 export const List = () => {
 	const [hobbies, setHobbies] = useState([])
+	const [editHobby, setEditHobby] = useState()
+
+	const hobbyInput = useCallback(
+		(e) => {
+			setEditHobby(e.target.value)
+		},
+		[setEditHobby]
+	)
 
 	useEffect(() => {
 		const hobbiesRef = firebase.database().ref('hobbies')
 
 		hobbiesRef.on('value', (snapshot) => {
 			let userHobbies = snapshot.val()
-			// let hobbyState = []
-			// console.log(userHobbies)
-			// for (let hobby in userHobbies) {
-			// 	hobbyState.push({
-			// 		id: hobby,
-			// 		...userHobbies[hobby],
-			// 	})
-			// }
-
-			console.log(userHobbies)
-
 			if (userHobbies) {
 				setHobbies(
 					Object.entries(userHobbies).map(([id, data]) => ({
@@ -35,24 +32,12 @@ export const List = () => {
 		return () => hobbiesRef.off('value')
 	}, [])
 
-	// const [hobbies, setHobbies] = useState([])
-
-	// useEffect(() => {
-	// 	const hobbiesRef = firebase.database().ref('hobbies')
-
-	// 	if (hobbiesRef) {
-	// 		var updateState = (snapshot) => {
-	// 			setHobbies(
-	// 				Object.entries(snapshot.val().hobbies).map(([id, data]) => ({
-	// 					...data,
-	// 					id,
-	// 				}))
-	// 			)
-	// 		}
-	// 		hobbiesRef.on('value', updateState)
-	// 		return () => hobbiesRef.off('value', updateState)
-	// 	}
-	// }, [])
+	const updateHobby = (e, hobbyId) => {
+		e.preventDefault()
+		const hobbyRef = firebase.database().ref(`/hobbies/${hobbyId}`)
+		hobbyRef.update({ title: editHobby })
+		setEditHobby('')
+	}
 
 	const removeHobby = useCallback(
 		(hobbyId) => {
@@ -69,6 +54,12 @@ export const List = () => {
 		hobbyMap = hobbies.map((hobby) => (
 			<div key={hobby.id}>
 				<h4>{hobby.title}</h4>
+				<input
+					name='editInput'
+					value={editHobby}
+					onChange={(e) => hobbyInput(e)}
+				/>{' '}
+				<button onClick={(e) => updateHobby(e, hobby.id)}>Edit</button>
 				<button onClick={(e) => removeHobby(hobby.id)}>Remove Hobby</button>
 			</div>
 		))
