@@ -47,8 +47,6 @@ export const List = () => {
 		[hobbies, setHobbies]
 	)
 
-	console.log()
-
 	let hobbyMap
 	if (hobbies !== undefined) {
 		hobbyMap = hobbies.map((hobby) => (

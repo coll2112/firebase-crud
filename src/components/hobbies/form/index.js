@@ -22,8 +22,6 @@ export const HobbyForm = () => {
 		setHobby('')
 	}
 
-	console.log(hobby)
-
 	return (
 		<>
 			<h3>This is a Firebase test!</h3>
