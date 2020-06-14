@@ -37,10 +37,10 @@ export const HobbyForm = () => {
 		<Container>
 			<Row>
 				<Col lg='12'>
-					<h3>This is a Firebase test!</h3>
+					<h3>React - Firebase CRUD App</h3>
 				</Col>
 				<Col lg='12'>
-					<p>What is your favorite hobby?</p>
+					<p>What are some of your favorite hobbies?</p>
 				</Col>
 			</Row>
 			<Form onSubmit={(e) => submitForm(e)}>
@@ -49,7 +49,9 @@ export const HobbyForm = () => {
 						<InputGroup>
 							<Input name='hobby' value={hobby} onChange={(e) => hobbyInput(e)} />
 							<InputGroupAddon addonType='append'>
-								<Button disabled={hobby === undefined}>Submit</Button>
+								<Button color='primary' disabled={hobby === undefined}>
+									Submit
+								</Button>
 							</InputGroupAddon>
 						</InputGroup>
 					</Col>

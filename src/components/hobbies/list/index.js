@@ -10,11 +10,14 @@ import {
 	FormGroup,
 	InputGroup,
 	InputGroupAddon,
+	Card,
+	CardTitle,
+	CardBody,
 } from 'reactstrap'
 
 export const List = () => {
 	const [hobbies, setHobbies] = useState([])
-	const [editHobby, setEditHobby] = useState()
+	const [editHobby, setEditHobby] = useState('')
 
 	const hobbyInput = useCallback(
 		(e) => {
@@ -61,23 +64,55 @@ export const List = () => {
 	let hobbyMap
 	if (hobbies !== undefined) {
 		hobbyMap = hobbies.map((hobby) => (
-			<div key={hobby.id}>
-				<h4>{hobby.title}</h4>
-				<input
-					name='editInput'
-					value={editHobby}
-					onChange={(e) => hobbyInput(e)}
-				/>{' '}
-				<button onClick={(e) => updateHobby(e, hobby.id)}>Edit</button>
-				<button onClick={(e) => removeHobby(hobby.id)}>Remove Hobby</button>
-			</div>
+			<Col key={hobby.id} lg='3' style={{ padding: '1rem' }}>
+				<Card>
+					<CardBody>
+						<Row>
+							<Col>
+								<h4 style={{ textTransform: 'capitalize', textAlign: 'center' }}>
+									{hobby.title}
+								</h4>
+							</Col>
+						</Row>
+						<InputGroup>
+							<Input
+								name='editInput'
+								value={editHobby}
+								onChange={(e) => hobbyInput(e)}
+							/>{' '}
+							<InputGroupAddon addonType='append'>
+								<Button
+									disabled={editHobby.length < 1}
+									color='secondary'
+									onClick={(e) => updateHobby(e, hobby.id)}
+								>
+									Edit
+								</Button>
+							</InputGroupAddon>
+						</InputGroup>
+						<Button
+							style={{ marginTop: '1rem' }}
+							block
+							outline
+							color='danger'
+							onClick={(e) => removeHobby(hobby.id)}
+						>
+							Remove Hobby
+						</Button>
+					</CardBody>
+				</Card>
+			</Col>
 		))
 	}
 
 	return (
 		<>
-			<h3>Your hobbies include:</h3>
-			{hobbyMap}
+			<Row>
+				<Col>
+					{hobbies.length > 1 ? <h3>Your hobbies include:</h3> : undefined}
+				</Col>
+			</Row>
+			<Row>{hobbyMap}</Row>
 		</>
 	)
 }
