@@ -1,4 +1,4 @@
-import firebase from '../../../firebase'
+import { database } from '../../../firebase/firebase'
 import React, { useState, useCallback } from 'react'
 import { List } from '../list'
 
@@ -14,7 +14,7 @@ export const HobbyForm = () => {
 
 	const submitForm = (e) => {
 		e.preventDefault()
-		const hobbiesRef = firebase.database().ref('hobbies')
+		const hobbiesRef = database.ref('hobbies')
 		const userHobby = {
 			title: hobby,
 		}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import firebase from '../../../firebase'
+import { database } from '../../../firebase/firebase'
 
 export const List = () => {
 	const [hobbies, setHobbies] = useState([])
@@ -13,7 +13,7 @@ export const List = () => {
 	)
 
 	useEffect(() => {
-		const hobbiesRef = firebase.database().ref('hobbies')
+		const hobbiesRef = database.ref('hobbies')
 
 		hobbiesRef.on('value', (snapshot) => {
 			let userHobbies = snapshot.val()
@@ -34,14 +34,14 @@ export const List = () => {
 
 	const updateHobby = (e, hobbyId) => {
 		e.preventDefault()
-		const hobbyRef = firebase.database().ref(`/hobbies/${hobbyId}`)
+		const hobbyRef = database.ref(`/hobbies/${hobbyId}`)
 		hobbyRef.update({ title: editHobby })
 		setEditHobby('')
 	}
 
 	const removeHobby = useCallback(
 		(hobbyId) => {
-			const hobbyRef = firebase.database().ref(`/hobbies/${hobbyId}`)
+			const hobbyRef = database.ref(`/hobbies/${hobbyId}`)
 			hobbyRef.remove()
 		},
 		[hobbies, setHobbies]
