@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { database } from '../../../firebase/firebase'
+import { database } from '../../../firebase'
 import {
 	Container,
 	Row,

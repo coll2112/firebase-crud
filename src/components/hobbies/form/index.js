@@ -11,7 +11,7 @@ import {
 	InputGroupAddon,
 } from 'reactstrap'
 import { List } from '../list'
-import { database } from '../../../firebase/firebase'
+import { database } from '../../../firebase'
 
 export const HobbyForm = () => {
 	const [hobby, setHobby] = useState()
