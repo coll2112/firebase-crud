@@ -1,5 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { database } from '../../../firebase/firebase'
+import {
+	Container,
+	Row,
+	Col,
+	Button,
+	Input,
+	Form,
+	FormGroup,
+	InputGroup,
+	InputGroupAddon,
+} from 'reactstrap'
 
 export const List = () => {
 	const [hobbies, setHobbies] = useState([])
